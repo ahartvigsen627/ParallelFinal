@@ -1,0 +1,29 @@
+Make sure have random matrix file:
+"matrix"
+in the same folder.
+I have a makefile for mpi and cuda parallel versions:
+
+-------------------------------
+MPI (On chpc - ember cluster):
+-------------------------------
+> g++ -O3 Validation.cpp -o Validation
+> mpic++ -O3 seq_SVD.cpp -o seq_SVD
+> make
+>
+> mpirun -np 1 ./seq_SVD 1024 1024 -t -d
+> mpirun -np 8 ./par_SVD 1024 1024 -t -d
+> Validation -p
+
+
+
+--------------------------------
+CUDA (on lab1 CADE):
+--------------------------------
+> setenv LD_LIBRARY_PATH /usr/local/apps/cuda/3.2/cuda/lib64
+> g++ -O3 Validation.cpp -o Validation
+> g++ -O3 seq_SVD.cpp -o seq_SVD
+> make
+>
+> ./seq_SVD 1024 1024 -t -d
+> ./cuda_SVD 1024 1024 -t -d
+> ./Validation -p
